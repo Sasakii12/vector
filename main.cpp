@@ -27,6 +27,14 @@ class Vector {
 			this->size++;
 		}
 
+		void remove() {
+			if (this->size == 0) {
+				return;
+			}
+
+			this->size -= 1;
+		}
+
 		int index(int x) {
 			if (0 > x || x >= this->size) {
 				return -1;
@@ -40,6 +48,10 @@ int main() {
 	arr.push_back(2);
 	arr.push_back(3);
 	arr.push_back(9);
+	for (int i = 0; i < arr.size; ++i) {
+		cout << arr.index(i) << '\n';
+	}
+	arr.remove();
 	for (int i = 0; i < arr.size; ++i) {
 		cout << arr.index(i) << '\n';
 	}
