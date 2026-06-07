@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 using namespace std;
 
 class Vector {
@@ -35,11 +36,27 @@ class Vector {
 			this->size -= 1;
 		}
 
-		int index(int x) {
-			if (0 > x || x >= this->size) {
-				return -1;
+
+		bool is_bounds(int index) {
+			if (0 > index || index >= this->size) {
+				return false;
 			}
-			return arr[x];
+			return true;
+		}
+
+		void replace(int index, int elem) {
+			if (is_bounds(index)) {
+				arr[index] = elem;
+			} else {
+				throw runtime_error("index out of bounds");
+			}
+		}
+
+		int index(int index) {
+			if (!is_bounds(index)) {
+				throw runtime_error("index out of bounds");
+			}
+			return arr[index];
 		}
 };
 
@@ -55,4 +72,7 @@ int main() {
 	for (int i = 0; i < arr.size; ++i) {
 		cout << arr.index(i) << '\n';
 	}
+
+	arr.replace(0, 15);
+	cout << arr.index(0) << '\n';
 }
